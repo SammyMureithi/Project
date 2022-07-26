@@ -3,7 +3,7 @@ import './App.css';
 import Header from './Components/Header';
 import Cart from './Pages/Cart';
 import Home from './Pages/Home';
-import Order from './Pages/Order';
+import Order from './Pages/OrderPage';
 
 function App() {
   return (

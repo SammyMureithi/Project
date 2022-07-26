@@ -3,7 +3,7 @@ import { Context } from '../ContextProvider'
 
 
 function CartItem( props ) {
-    const {toggleFavourite,removeFromCart,cart}=useContext(Context)
+    const {toggleFavourite,removeFromCart,cart,addOrder,buttonText}=useContext(Context)
     const styles = {
        borderRadius:"12px"
     }
@@ -34,8 +34,11 @@ function CartItem( props ) {
       </div>
               <div className="top-right">
                   {cartIcon()}
-      </div>
-    </div>
+              </div>
+              
+          </div>
+          <button className='button' onClick={() => addOrder(props.id)}>
+              {buttonText == 0 ? "Buy now" : "Order placed succesfully"}</button>
       </div>
   )
 }

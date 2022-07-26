@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react'
 
 const Context=createContext()
-function ContextProvider( props ) {
+function ContextProvider( props ){
     const [cart, setCart] = useState( [] )
+    const [buttonText, setButtonText] = useState(0)
+    const [orders,setOrders]=useState([])
     const [allProducts, setAllProducts] = useState( [] )
     useEffect( () => {
         fetch( "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json" )
@@ -42,9 +44,28 @@ function ContextProvider( props ) {
         } )
         setAllProducts(updatedArray)
     }
+    function addOrder( id ) {
+        const alreadyInOrder=orders.some(ele => ele.id==id)
+        cart.map( element => {
+            if ( element.id == id ) {
+                if ( !alreadyInOrder ) {
+                    setTimeout( () => {
+                        console.log( "Order placed!" )
+                        setOrders( oldOrder => [...oldOrder, element] )
+                        setCart( prevItem => prevItem.filter( items => items.id !== id ) )
+                        setButtonText( 0 )
+                    }, 1500 )
+                    setButtonText( 0 )
+                    
+                }
+            }
+        })
+    }
+    console.log(orders)
   return (
       <div>
-          <Context.Provider value={{allProducts,addToCart,removeFromCart,cart,toggleFavourite}}>
+          <Context.Provider
+              value={{ allProducts, addToCart, removeFromCart, cart, toggleFavourite, addOrder, buttonText,orders}}>
               {props.children}
           </Context.Provider>
     </div>
